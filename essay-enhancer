@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essay Enhancer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Essay Enhancer</h1>
+    <p>Paste your essay below, and click "Enhance" to improve the vocabulary.</p>
+    <textarea id="essayInput" placeholder="Paste your essay here..."></textarea><br><br>
+    <button onclick="enhanceEssay()">Enhance</button>
+
+    <div id="result"></div>
+
+    <script>
+        function enhanceEssay() {
+            const essay = document.getElementById('essayInput').value;
+
+            // Define some word replacements (you can expand this list)
+            const wordReplacements = {
+                "nice": "pleasant",
+                "important": "crucial",
+                "help": "assist",
+                "get": "acquire",
+                "big": "substantial",
+                "small": "insignificant",
+                "smart": "intelligent",
+                "easy": "effortless",
+                "hard": "challenging",
+                "interesting": "captivating",
+                "really": "truly",
+                "many": "numerous",
+                "very": "extremely",
+                "show": "demonstrate"
+                "angry": "furious"
+                "happy": "delighted"
+                "but": "however"
+                "good": "excellent"
+                "get": "acquire"
+                "help": "assist"
+                "get rid of": "eliminate"
+                "important": "vital"
+                "important": "vital"
+                "important": "vital"
+                "important": "vital"
+                "in addition": "furthermore"
+                "I'm": "I am",
+                "You're": "You are",
+                "He's": "He is",
+                "She's": "She is",
+                "It's": "It is",
+                "We're": "We are",
+                "They're": "They are",
+                "I've": "I have",
+                "You've": "You have",
+                "We've": "We have",
+                "They've": "They have",
+                "I'd": "I would",
+                "You'd": "You would",
+                "He'd": "He would",
+                "She'd": "She would",
+                "We'd": "We would",
+                "They'd": "They would",
+                "I'll": "I will",
+                "You'll": "You will",
+                "He'll": "He will",
+                "She'll": "She will",
+                "We'll": "We will",
+                "They'll": "They will",
+                "Can't": "Cannot",
+                "Won't": "Will not",
+                "Don't": "Do not",
+                "Didn't": "Did not",
+                "Isn't": "Is not",
+                "Aren't": "Are not",
+                "Wasn't": "Was not",
+                "Weren't": "Were not",
+                "Hasn't": "Has not",
+                "Haven't": "Have not",
+                "Hadn't": "Had not",
+                "Doesn't": "Does not",
+                "Shouldn't": "Should not",
+                "Wouldn't": "Would not",
+                "Couldn't": "Could not",
+                "Mightn't": "Might not",
+                "Mustn't": "Must not",
+                "Needn't": "Need not",
+                "Oughtn't": "Ought not",
+                "Let's": "Let us",
+                "That's": "That is",
+                "Who's": "Who is",
+                "What's": "What is",
+                "How's": "How is",
+                "Where's": "Where is",
+                "Why's": "Why is",
+                "Here’s": "Here is",
+                "There’s": "There is",
+                "Dunno": "Don't know",
+                "Y'all": "You all",
+                "Gonna": "Going to",
+                "Wanna": "Want to",
+                "Gotta": "Got to",
+                "Kinda": "Kind of",
+                "Shoulda": "Should have",
+                "Coulda": "Could have",
+                "Woulda": "Would have",
+                "Mighta": "Might have",
+                "uses": "makes use of"
+                "state of affairs": "situation"
+                "uses": "makes use of"
+            };
+
+            // Loop through each word replacement and apply it to the essay
+            let enhancedEssay = essay;
+            for (let word in wordReplacements) {
+                const regex = new RegExp("\\b" + word + "\\b", "gi");
+                enhancedEssay = enhancedEssay.replace(regex, wordReplacements[word]);
+            }
+
+            // Display the enhanced essay
+            document.getElementById('result').innerText = enhancedEssay || "Please paste your essay.";
+        }
+    </script>
+</body>
+</html>
