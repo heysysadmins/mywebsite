@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Opener for Filter Status</title>
+</head>
+<body>
+  <h1>URL Opener for Filter Status</h1>
+  <p>Type in the URLs, one per line. The script will open each URL in a new tab to check the filter status.</p>
+
+  <textarea id="urlInput" rows="10" cols="50" placeholder="Enter URLs, one per line"></textarea><br>
+
+  <h2>Exclude Domains</h2>
+  <p>Type in domains to exclude. If a URL is a subdomain of or contains an excluded domain, it won't be opened.</p>
+  <textarea id="excludeInput" rows="5" cols="50" placeholder="Enter domains to exclude, one per line"></textarea><br>
+
+  <label>
+    <input type="checkbox" id="proxyCheck">
+    Exclude URLs listed in <code>/proxy.txt</code>
+  </label><br>
+
+  <label>
+    <input type="checkbox" id="subdomainCheck">
+    Exclude subdomains listed in <code>/subdomains.txt</code>
+  </label><br><br>
+
+  <button id="processButton">Open URLs</button>
+
+  <script>
+    async function fetchList(filePath) {
+      try {
+        const response = await fetch(filePath);
+        if (!response.ok) throw new Error(`Failed to load ${filePath}.`);
+        const text = await response.text();
+        return text.split('\n').map(url => url.trim().replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/$/, '')).filter(Boolean);
+      } catch (error) {
+        console.error(error);
+        return [];
+      }
+    }
+
+    document.getElementById('processButton').addEventListener('click', async () => {
+      const urlInput = document.getElementById('urlInput').value.trim();
+      const excludeInput = document.getElementById('excludeInput').value.trim();
+      const proxyCheckEnabled = document.getElementById('proxyCheck').checked;
+      const subdomainCheckEnabled = document.getElementById('subdomainCheck').checked;
+
+      if (!urlInput) {
+        alert('Please enter some URLs.');
+        return;
+      }
+
+      const urls = urlInput.split('\n')
+        .map(url => url.trim().replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/$/, ''))
+        .filter(Boolean);
+
+      const excludeList = excludeInput.split('\n')
+        .map(url => url.trim().replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/$/, ''))
+        .filter(Boolean);
+
+      let proxyList = [], subdomainList = [];
+
+      if (proxyCheckEnabled) {
+        proxyList = await fetchList('/proxy.txt');
+      }
+
+      if (subdomainCheckEnabled) {
+        subdomainList = await fetchList('/subdomains.txt');
+      }
+
+      const isExcluded = (url) => {
+        return (
+          excludeList.some(excluded => url === excluded || url.endsWith(`.${excluded}`)) ||
+          (proxyCheckEnabled && proxyList.includes(url)) ||
+          (subdomainCheckEnabled && subdomainList.some(domain => url.endsWith(`.${domain}`)))
+        );
+      };
+
+      urls.forEach(url => {
+        if (!isExcluded(url)) {
+          const checkerUrl = `https://filterchecker.psr.tf/check/${url}/results.txt`;
+          window.open(checkerUrl, '_blank');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
