@@ -585,3 +585,4 @@ https://vault.jobi.one
 https://anything.lesson-3.politechnika-nova.edu.pl
 https://uniub.politechnika-nova.edu.pl
 https://lesson-1.politechnika-nova.edu.pl
+https://studyhall.talc.network
