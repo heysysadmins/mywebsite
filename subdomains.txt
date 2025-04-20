@@ -14,8 +14,9 @@ https://byte4byte.com
 https://oops.wtf
 https://moot.es
 https://serverpit.com
-https://kameli.orghttps://kisei.laviewddns.com/
-https://dartn-zako.laviewddns.com/
+https://kameli.org
+https://kisei.laviewddns.com
+https://dartn-zako.laviewddns.com
 https://douchisushi.com
 https://hamrospace.com
 https://ddnsguru.com
@@ -1658,3 +1659,4 @@ https://tarjeta.si
 https://theeduweb.com
 https://themcleans.us
 https://buys.ru
+https://megasrv.de
